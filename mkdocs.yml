@@ -1,0 +1,90 @@
+site_name: AD-SecretGen
+site_description: Derive Active Directory password hashes and Kerberos keys from a cleartext password.
+site_url: https://strongwind1.github.io/AD-SecretGen/
+repo_url: https://github.com/StrongWind1/AD-SecretGen
+repo_name: StrongWind1/AD-SecretGen
+
+theme:
+  name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - navigation.footer
+    - toc.follow
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+  - def_list
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Installation: getting-started/installation.md
+  - Guide:
+      - Output Formats: guide/output-formats.md
+      - Casing & the Kerberos Salt: guide/casing.md
+      - gMSA / dMSA: guide/gmsa.md
+  - CLI Reference: reference/cli.md
+
+# Internal design documents -- kept in the repository (docs/design) for reference,
+# excluded from the published site.
+exclude_docs: |
+  design/
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/StrongWind1/AD-SecretGen
+      name: AD-SecretGen on GitHub
+  generator: false
+
+extra_css:
+  - stylesheets/extra.css
+
+strict: true

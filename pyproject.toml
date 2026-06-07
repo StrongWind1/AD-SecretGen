@@ -1,0 +1,135 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ad-secretgen"
+dynamic = ["version"]
+description = "Derive Active Directory password hashes and Kerberos keys from a cleartext password — the inverse of NTDSWolf."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11,<3.15"
+authors = [
+    { name = "StrongWind1" },
+]
+keywords = [
+    "active-directory",
+    "kerberos",
+    "ntlm",
+    "ntds",
+    "password-hash",
+    "penetration-testing",
+    "red-team",
+    "security",
+]
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Security",
+]
+dependencies = [
+    "pycryptodome",
+    "rich",
+]
+
+[project.urls]
+Repository = "https://github.com/StrongWind1/AD-SecretGen"
+Documentation = "https://strongwind1.github.io/AD-SecretGen/"
+Changelog = "https://github.com/StrongWind1/AD-SecretGen/blob/main/CHANGELOG.md"
+Issues = "https://github.com/StrongWind1/AD-SecretGen/issues"
+
+[project.scripts]
+ad-secretgen = "ad_secretgen:main"
+adsg = "ad_secretgen:main"
+
+# Single-file module: the importable, installable, and PEP 723 wget/uv-run artifact
+# are all the one ad_secretgen.py at the repo root.
+[tool.hatch.version]
+path = "ad_secretgen.py"
+
+[tool.hatch.build.targets.wheel]
+only-include = ["ad_secretgen.py"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/site",
+    "/specs",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.11",
+    "ty>=0.0.1a7",
+    "pre-commit>=4.0",
+]
+docs = [
+    "mkdocs-material>=9.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 320
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",  # trailing comma — conflicts with the ruff formatter
+    "ISC001",  # implicit string concat — conflicts with the ruff formatter
+    "D203",    # blank line before class docstring — incompatible with D211
+    "D213",    # multi-line summary second line — incompatible with D212
+]
+
+[tool.ruff.lint.per-file-ignores]
+"ad_secretgen.py" = [
+    "T201",    # print — the CLI prints to stdout/stderr
+    "S303",    # MD4/MD5 — NT hash / WDigest are defined as these
+    "S304",    # DES cipher — LM / Kerberos DES are defined as DES
+    "S305",    # ECB mode — LM is defined as single-block DES-ECB
+    "S324",    # hashlib MD5 / SHA1 — WDigest (MD5) and the AES KDF (PBKDF2-SHA1) are spec-defined
+    "S105",    # hardcoded "kerberos" / "password" — protocol constants and meta labels, not secrets
+    "PLC0415", # non-top-level import — rich is imported lazily inside format_pretty only
+]
+"tests/**" = [
+    "D",       # docstrings — tests
+    "S101",    # assert — pytest idiom
+    "S105",    # hardcoded password — test data
+    "S106",    # hardcoded password in arg — test data
+    "ANN",     # annotations — pytest fixtures / helpers
+    "PLR2004", # magic values — test assertions
+    "SLF001",  # private access — testing internal helpers
+    "N802",    # uppercase in function name — match algorithm names
+    "INP001",  # implicit namespace package — tests dir has no __init__
+    "PT011",   # pytest.raises without match — some intentional
+    "ARG001",  # unused args — parametrize fixtures
+]
+
+[tool.ty.environment]
+python-version = "3.11"
+
+[tool.ty.rules]
+all = "error"
+
+[tool.ty.terminal]
+error-on-warning = true
+
+[tool.ty.analysis]
+# pycryptodome ships no type information — treat its imports as Any.
+replace-imports-with-any = [
+    "Crypto.**",
+]
+allowed-unresolved-imports = []
+
+[[tool.ty.overrides]]
+include = ["tests/**"]
+
+[tool.ty.overrides.rules]
+all = "ignore"
