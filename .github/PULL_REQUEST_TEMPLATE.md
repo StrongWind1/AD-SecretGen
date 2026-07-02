@@ -1,17 +1,19 @@
 ## Summary
 
-Brief description of what this PR does and why.
+<!-- What does this PR do? Why is it needed? -->
 
 ## Changes
 
--
+<!-- Bullet list of key changes -->
 
 ## Testing
 
-- [ ] `make check` passes (lint + typecheck + tests + docs)
-- [ ] New tests added for new functionality
-- [ ] Output validated against an authoritative source (DSInternals / secretsdump / a KDC) or a known-answer vector, if applicable
+<!-- How did you verify the changes? -->
+
+- [ ] `make check` passes (lint + typecheck + tests)
+- [ ] New/changed behavior is covered by tests
+- [ ] Documentation updated (if applicable)
 
 ## Notes
 
-Any additional context, trade-offs, or things reviewers should know.
+<!-- Anything reviewers should know? Breaking changes, migration steps, etc. -->

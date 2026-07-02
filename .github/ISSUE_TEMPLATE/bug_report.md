@@ -1,33 +1,33 @@
 ---
 name: Bug report
-about: Report a bug in AD-SecretGen
+about: Report a bug or unexpected behavior
 title: ""
 labels: bug
 assignees: ""
 ---
 
-## Command
+**Describe the bug**
+A clear description of what happened.
 
-The exact command you ran (you can redact the password):
+**Command**
+The exact `ad-secretgen` command you ran (redact sensitive values):
 
 ```bash
-
+ad-secretgen ...
 ```
 
-## Output
-
-What happened (paste the full output):
-
-```
+**Output**
+Paste the full output (use `-vvv` for trace-level detail where supported):
 
 ```
+...
+```
 
-## Expected behavior
+**Expected behavior**
+What you expected to happen.
 
-What you expected instead — ideally the authoritative value (from DSInternals `Get-ADReplAccount`, secretsdump, or a KDC) and how you obtained it.
-
-## Environment
-
-- OS: (e.g., Kali 2025.1, Ubuntu 24.04, macOS 15)
-- Python version: (output of `python3 --version`)
-- AD-SecretGen version: (output of `ad-secretgen --version`)
+**Environment**
+- OS: [e.g. Kali 2025.1, Ubuntu 24.04]
+- Python version: [e.g. 3.12.3]
+- AD-SecretGen version: [e.g. 1.0.0]
+- Install method: [e.g. uv, pipx, pip]
