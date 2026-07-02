@@ -55,7 +55,7 @@ except ImportError:  # pragma: no cover - pycryptodome is a declared dependency
 if TYPE_CHECKING:
     from collections.abc import Callable, Sequence
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 # --- Constants ---
 
