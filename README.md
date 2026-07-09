@@ -63,9 +63,16 @@ $ ad-secretgen --password 'P@ssw0rd!' --user alice --realm corp.local --netbios 
 
 ## Installation
 
-Install with [uv](https://docs.astral.sh/uv/) (provides the `ad-secretgen` command and the short alias `adsg`):
+Install from [PyPI](https://pypi.org/project/ad-secretgen/) (provides the `ad-secretgen` command and the short alias `adsg`):
 
-```bash
+```sh
+uv tool install ad-secretgen        # recommended
+pip install ad-secretgen             # or with pip
+```
+
+Or install from source:
+
+```sh
 uv tool install git+https://github.com/StrongWind1/AD-SecretGen
 ```
 
