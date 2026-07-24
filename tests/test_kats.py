@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Published known-answer vectors — independent of the lab.
 
 NT/LM are the well-known NTOWFv1/LMOWFv1 values ([MS-NLMP] 3.3.1); the Kerberos

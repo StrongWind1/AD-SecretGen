@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Pytest configuration for the AD-SecretGen suite.
 
 The package is imported normally (``import ad_secretgen``); ``uv sync`` installs it

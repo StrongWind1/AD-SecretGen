@@ -1,4 +1,5 @@
 #!/usr/bin/env -S uv run --script
+# SPDX-License-Identifier: Apache-2.0
 # /// script
 # requires-python = ">=3.11"
 # dependencies = ["pycryptodome", "rich"]

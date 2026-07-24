@@ -89,6 +89,9 @@ ignore = [
     "D213",    # multi-line summary second line — incompatible with D212
 ]
 
+[tool.ruff.lint.flake8-copyright]
+notice-rgx = "(?i)# SPDX-License-Identifier"
+
 [tool.ruff.lint.per-file-ignores]
 "ad_secretgen.py" = [
     "T201",    # print — the CLI prints to stdout/stderr

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Property / invariant tests that need no lab oracle."""
 
 from __future__ import annotations

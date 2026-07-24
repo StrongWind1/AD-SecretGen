@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Golden-fixture tests: gen_secrets.compute_secrets vs real-AD values.
 
 Each fixture's ``expected`` block was captured from a live DC (DSInternals
