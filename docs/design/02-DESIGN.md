@@ -32,31 +32,33 @@ Sections, in order: (1) imports + MD4 fail-fast; (2) constants (`KGS!@#$%`, `"ke
 ## 3. Data model (frozen dataclasses — 01-style immutable records)
 
 ```python
-class AccountType(StrEnum):          # salt rule; CLI defaults computer for $/--managed-blob, overridable
+class AccountType(StrEnum):  # salt rule; CLI defaults computer for $/--managed-blob, overridable
     USER = "user"
     COMPUTER = "computer"
-    TRUST = "trust"                  # = user salt, $ retained (§1)
+    TRUST = "trust"  # = user salt, $ retained (§1)
+
 
 @dataclass(frozen=True, slots=True)
 class Identity:
-    sam_account_name: str            # --user
-    realm_dns: str                   # --realm (DNS form; Kerberos realm = UPPER(realm_dns))
+    sam_account_name: str  # --user
+    realm_dns: str  # --realm (DNS form; Kerberos realm = UPPER(realm_dns))
     account_type: AccountType
-    netbios_domain: str | None       # --netbios    (WDigest 1–7,18–20,27–29)
-    dns_domain: str | None           # --dns-domain (WDigest 8–14; default realm_dns)
-    upn: str | None                  # --upn        (WDigest 15–17,24–26)
+    netbios_domain: str | None  # --netbios    (WDigest 1–7,18–20,27–29)
+    dns_domain: str | None  # --dns-domain (WDigest 8–14; default realm_dns)
+    upn: str | None  # --upn        (WDigest 15–17,24–26)
+
 
 @dataclass(frozen=True, slots=True)
 class Secrets:
     nt: bytes
     lm: bytes
-    rc4_hmac: bytes                  # == nt
-    des: bytes | None                # 8 B; etypes 1 & 3 share it
+    rc4_hmac: bytes  # == nt
+    des: bytes | None  # 8 B; etypes 1 & 3 share it
     aes128: bytes | None
     aes256: bytes | None
-    wdigest: tuple[bytes, ...]       # 0 or 29
-    salt: str | None                 # computed Kerberos salt (shown in the meta section; salts DES+AES)
-    skipped: tuple[str, ...]         # secrets not computed + why (FR-SEC-8)
+    wdigest: tuple[bytes, ...]  # 0 or 29
+    salt: str | None  # computed Kerberos salt (shown in the meta section; salts DES+AES)
+    skipped: tuple[str, ...]  # secrets not computed + why (FR-SEC-8)
 ```
 
 `None`/empty marks "not computable from the inputs given" (drives FR-SEC-8 warn-and-skip). The formatters consume `Secrets` + `Identity`; nothing else.
