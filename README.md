@@ -7,13 +7,13 @@
   <a href="https://pypi.org/project/ad-secretgen/"><img src="https://img.shields.io/pypi/v/ad-secretgen.svg" alt="PyPI"></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python 3.11+"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License: Apache 2.0"></a>
-  <a href="https://strongwind1.github.io/AD-SecretGen/"><img src="https://img.shields.io/badge/docs-mkdocs-blue.svg" alt="Docs"></a>
+  <a href="https://strongwind.dev/AD-SecretGen/"><img src="https://img.shields.io/badge/docs-mkdocs-blue.svg" alt="Docs"></a>
 </p>
 
 <p align="center">
-  <a href="https://strongwind1.github.io/AD-SecretGen/">Documentation</a> &bull;
-  <a href="https://strongwind1.github.io/AD-SecretGen/getting-started/installation/">Installation</a> &bull;
-  <a href="https://strongwind1.github.io/AD-SecretGen/reference/cli/">CLI reference</a>
+  <a href="https://strongwind.dev/AD-SecretGen/">Documentation</a> &bull;
+  <a href="https://strongwind.dev/AD-SecretGen/getting-started/installation/">Installation</a> &bull;
+  <a href="https://strongwind.dev/AD-SecretGen/reference/cli/">CLI reference</a>
 </p>
 
 `ad-secretgen` takes a **password** (cleartext, or a raw password blob) plus an **account identity** and computes every password-derived secret that Active Directory stores **PEK-encrypted in `NTDS.dit`** for that account - byte-for-byte what a domain controller would store.
