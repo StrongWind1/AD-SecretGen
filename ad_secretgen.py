@@ -199,7 +199,7 @@ def _wdigest_bytes(text: str) -> bytes:
 
 def compute_nt_hash(password: str) -> bytes:
     """NTOWFv1 = MD4(UTF-16LE(password)) ([MS-NLMP] 3.3.1); also the RC4-HMAC key ([RFC4757])."""
-    return MD4.new(_utf16le(password)).digest()
+    return bytes(MD4.new(_utf16le(password)).digest())
 
 
 def compute_lm_hash(password: str) -> bytes:
@@ -220,7 +220,7 @@ def compute_lm_hash(password: str) -> bytes:
 
 def _lm_half(key7: bytes) -> bytes:
     """Encrypt the fixed LM plaintext under the DES key spread from a 7-byte password half."""
-    return DES.new(_expand_des_key(key7), DES.MODE_ECB).encrypt(_LM_MAGIC)
+    return bytes(DES.new(_expand_des_key(key7), DES.MODE_ECB).encrypt(_LM_MAGIC))
 
 
 def _expand_des_key(key7: bytes) -> bytes:
@@ -418,7 +418,7 @@ def compute_secrets(identity: Identity, password: str | PasswordMaterial, salt_o
     aes128: bytes | None = None
     aes256: bytes | None = None
     salt: str | None = None
-    if salt_override or identity.realm_dns:
+    if bool(salt_override) or identity.realm_dns:
         salt = salt_override or compute_kerberos_salt(identity)
         salt_bytes = salt.encode("utf-8")
         aes128 = compute_kerberos_aes_key(text, salt_bytes, AES128_KEY_SIZE)
@@ -431,7 +431,7 @@ def compute_secrets(identity: Identity, password: str | PasswordMaterial, salt_o
         skipped.append("kerberos des/aes (no --realm)")
 
     wdigest: tuple[bytes, ...] = ()
-    if identity.netbios_domain and (identity.dns_domain or identity.realm_dns):
+    if bool(identity.netbios_domain) and bool(identity.dns_domain or identity.realm_dns):
         try:
             wdigest = compute_wdigest_hashes(identity, text)
         except UnicodeEncodeError:
@@ -504,11 +504,11 @@ def _meta_rows(identity: Identity, secrets: Secrets, password_row: _Row | None) 
         rows.append(password_row)
     if secrets.salt is not None:
         rows.append(_meta_row("Kerberos salt", "kerberos_salt", secrets.salt))
-    if identity.netbios_domain:
+    if bool(identity.netbios_domain):
         rows.append(_meta_row("netbios-domain", "netbios_domain", identity.netbios_domain))
-    if identity.dns_domain:
+    if bool(identity.dns_domain):
         rows.append(_meta_row("dns-domain", "dns_domain", identity.dns_domain))
-    if identity.upn:
+    if bool(identity.upn):
         rows.append(_meta_row("upn", "upn", identity.upn))
     return rows
 
@@ -626,7 +626,7 @@ def _resolve_account_type(explicit: str | None, *, managed_blob: bool, sam: str)
     (gMSA/dMSA) or a ``$``-suffixed name (machine/gMSA) — both computer-class — else **user**. Trust
     accounts also end in ``$``, so they require an explicit ``--account-type trust``.
     """
-    if explicit:
+    if explicit is not None:
         return AccountType(explicit)
     if managed_blob or sam.endswith("$"):
         return AccountType.COMPUTER
