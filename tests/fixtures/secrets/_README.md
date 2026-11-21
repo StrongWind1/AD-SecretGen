@@ -11,7 +11,7 @@ The hashes are cryptographically bound to the `snow.lab` / `SNOW` realm (it is p
 ## Coverage
 
 | Fixture | Pins |
-|---------|------|
+| --------- | ------ |
 | `svc_ascii` | user with an explicit UPN — proves a UPN does **not** change the salt |
 | `svc_long` | >14-char password — LM blank placeholder |
 | `svc_uni1` | Latin-1-range non-ASCII — WDigest Latin-1 + DES ANSI codepage |
