@@ -102,3 +102,6 @@ pyrightconfig.json
 # Microsoft Open Specification reference docs are kept as Markdown in specs/;
 # the source .docx / .pdf are large and not redistributable -- keep them local.
 specs/
+
+# Built-site checkers (npm ci)
+node_modules/
